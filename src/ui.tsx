@@ -1,26 +1,48 @@
-import { Color4 } from '@dcl/sdk/math'
-import ReactEcs, { ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
+import ReactEcs, { ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs';
 import { canvasInfo } from "./index";
+import { SpriteAnimation, UIAnimatedSprite } from './ui-components/UIAnimatedSprite';
 
+const widthFactor:number = .5
+const heightFactor:number = .5
+const mySprite = new SpriteAnimation("images/spriteAnimation/walk_anim_sprite.png", 4, 2, 20)
 const uiComponent = () => (
   <UiEntity
-    uiTransform = {{
-      width:'90%',
-      height: '90%',
-      margin: { top: '5%', left: '5%' }
+    uiTransform={{
+      height: canvasInfo.height * heightFactor,
+      width: canvasInfo.width * widthFactor,
+      margin: { top: canvasInfo.height * (1.0 - heightFactor) / 2, left: canvasInfo.width * (1.0 - widthFactor) / 2 },
+      display: 'flex',
+      flexDirection: 'column',
     }}
-    uiBackground={{ color: Color4.Red() }}
+    uiBackground={{
+		texture: {
+			src: "images/bg2.png",
+      
+		},
+    // textureMode: 'stretch'
+    textureMode: 'nine-slices',
+    textureSlices: {
+      top: 0.3,
+      bottom: 0.3,
+      left: 0.3,
+      right: 0.3
+    }
+	}}
   >
-    <UiEntity
-      uiTransform = {{
-        width: canvasInfo.width * 0.8,
-        height: canvasInfo.height * 0.8,
-        margin: { top: canvasInfo.height * 0.05, left: canvasInfo.width * 0.05 }
+
+<UIAnimatedSprite
+      spriteAnimator={mySprite}
+      uiTransform={{
+        width: 120,
+        height: 240,
+        positionType: 'absolute',
+        position: { top: '4%', left: '23%' }
       }}
-      uiBackground={{ color: Color4.Blue() }}
     />
   </UiEntity>
 )
+
+mySprite.show()
 
 export function setupUi() {
   ReactEcsRenderer.setUiRenderer(uiComponent)
