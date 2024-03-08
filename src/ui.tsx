@@ -22,7 +22,7 @@ const uiComponent = () => (
     <Button
       value="Large text button with padding = 10px"
       variant="primary"
-      uiTransform={{ alignSelf: 'center', padding:'50px'}}
+      uiTransform={{ alignSelf: 'center', padding:'10px'}}
       onMouseDown={() => {
         handleSubmitText(currentValue)
         currentValue = ''
