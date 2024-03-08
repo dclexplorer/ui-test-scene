@@ -2,8 +2,8 @@ import { Color4 } from '@dcl/sdk/math'
 import ReactEcs, { Button, Input, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 import { canvasInfo } from "./index";
 
-const widthFactor:number = .5
-const heightFactor:number = .5
+const widthFactor:number = .1
+const heightFactor:number = .1
 let currentValue: string = ''
 
 const uiComponent = () => (
@@ -13,29 +13,16 @@ const uiComponent = () => (
       width: canvasInfo.width * widthFactor,
       margin: { top: canvasInfo.height * (1.0 - heightFactor) / 2, left: canvasInfo.width * (1.0 - widthFactor) / 2 },
       flexDirection: 'column',
+      justifyContent: 'center'
     }}
     uiBackground={{
-      color: Color4.Gray(),
+      color: Color4.create(0, 0, 0, 0.8),
     }}
   >
-    <Input
-      onSubmit={(value) => {
-        handleSubmitText(value)
-      }}
-      fontSize={35}
-      placeholder={'type something'}
-      placeholderColor={Color4.Black()}
-      value={currentValue}
-      onChange={($) => (currentValue = $)}
-      uiTransform={{
-        height: '80px',
-        margin: '15px',
-      }}
-    ></Input>
     <Button
-      value="Submit text"
+      value="Large text button with padding = 10px"
       variant="primary"
-      uiTransform={{ alignSelf: 'center', padding: '25px' }}
+      uiTransform={{ alignSelf: 'center', padding:'50px'}}
       onMouseDown={() => {
         handleSubmitText(currentValue)
         currentValue = ''
