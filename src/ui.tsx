@@ -1,60 +1,52 @@
 import { Color4 } from '@dcl/sdk/math'
-import ReactEcs, { Button, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
+import ReactEcs, { Button, Input, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 import { canvasInfo } from "./index";
 
-
-const widthFactor:number = .3
-const heightFactor:number = .3
-var isMenuVisible: boolean = false
+const widthFactor:number = .5
+const heightFactor:number = .5
+let currentValue: string = ''
 
 const uiComponent = () => (
-  // parent
   <UiEntity
     uiTransform={{
-      minHeight: canvasInfo.height * heightFactor,
+      height: canvasInfo.height * heightFactor,
       width: canvasInfo.width * widthFactor,
       margin: { top: canvasInfo.height * (1.0 - heightFactor) / 2, left: canvasInfo.width * (1.0 - widthFactor) / 2 },
-      display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'flex-end',
-      alignItems: 'center' 
     }}
-    uiBackground={{ color: Color4.Blue() }}
-
+    uiBackground={{
+      color: Color4.Gray(),
+    }}
   >
-     
-      // Menu
-     <UiEntity
+    <Input
+      onSubmit={(value) => {
+        handleSubmitText(value)
+      }}
+      fontSize={35}
+      placeholder={'type something'}
+      placeholderColor={Color4.Black()}
+      value={currentValue}
+      onChange={($) => (currentValue = $)}
       uiTransform={{
-          height: 100,
-          width: '100%',
-          alignContent: 'center',
-          justifyContent: 'center',
-          display: isMenuVisible ? 'flex': 'none'
-       }}
-        uiText={{
-          value: "Menu",
-          fontSize: 30
-       }}
-       uiBackground={{ color: Color4.Green() }}
-     />
-     // button
-     <Button
-       uiTransform={{
-          width: 100,
-          height: 30,
-         
-       }}
-       value="Toggle Menu"
-       uiBackground={{ color: Color4.Red() }}
-       onMouseUp = {toggleMenuVisibility}
-     />
+        height: '80px',
+        margin: '15px',
+      }}
+    ></Input>
+    <Button
+      value="Submit text"
+      variant="primary"
+      uiTransform={{ alignSelf: 'center', padding: '25px' }}
+      onMouseDown={() => {
+        handleSubmitText(currentValue)
+        currentValue = ''
+      }}
+    />
   </UiEntity>
 )
 
-// Function to toggle the state of the menu
-function toggleMenuVisibility(){
- isMenuVisible = !isMenuVisible
+function handleSubmitText(value: string) {
+  console.log('submitted value: ' + value)
+  // do something with text
 }
 
 export function setupUi() {
