@@ -1,10 +1,13 @@
 import ReactEcs, { ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs';
 import { canvasInfo } from "./index";
-import { SpriteAnimation, UIAnimatedSprite } from './ui-components/UIAnimatedSprite';
+import { UISpinner, Spinner } from './ui-components/UISpinner';
+import { SpriteAnimation, UIAnimatedSprite } from './ui-components/UIAnimatedSprite'
 
 const widthFactor:number = .5
 const heightFactor:number = .5
-const mySprite = new SpriteAnimation("images/spriteAnimation/walk_anim_sprite.png", 4, 2, 20)
+const spinner = new Spinner('images/loadingAnimation/spinner.png', 600)
+const mySprite = new SpriteAnimation("images/loadingAnimation/loading-sprite.png", 4, 2, 20)
+
 const uiComponent = () => (
   <UiEntity
     uiTransform={{
@@ -30,18 +33,31 @@ const uiComponent = () => (
 	}}
   >
 
+<UISpinner
+      spinner={spinner}
+      uiTransform={{
+        width: 128,
+        height: 128,
+        positionType: 'absolute',
+        position: { top: canvasInfo.height * heightFactor / 2-64, left: canvasInfo.width * widthFactor /2-250  }
+      }}
+    />
+
 <UIAnimatedSprite
       spriteAnimator={mySprite}
       uiTransform={{
-        width: 120,
-        height: 240,
+        width: 128,
+        height: 128,
         positionType: 'absolute',
-        position: { top: '4%', left: '23%' }
+        position: { top: canvasInfo.height * heightFactor / 2-64, left: canvasInfo.width * widthFactor /2+250-128 }
       }}
     />
+
+  
   </UiEntity>
 )
 
+spinner.show()
 mySprite.show()
 
 export function setupUi() {
