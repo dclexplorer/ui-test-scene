@@ -1,64 +1,51 @@
-import ReactEcs, { ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs';
-import { canvasInfo } from "./index";
-import { UISpinner, Spinner } from './ui-components/UISpinner';
-import { SpriteAnimation, UIAnimatedSprite } from './ui-components/UIAnimatedSprite'
+import { Color4 } from '@dcl/sdk/math';
+import ReactEcs, { Button, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs';
 
-const widthFactor:number = .5
-const heightFactor:number = .5
-const spinner = new Spinner('images/loadingAnimation/spinner.png', 600)
-const mySprite = new SpriteAnimation("images/loadingAnimation/loading-sprite.png", 4, 2, 20)
+let primary = Color4.Red()
+let secondary = Color4.Green()
 
 const uiComponent = () => (
-  <UiEntity
-    uiTransform={{
-      height: canvasInfo.height * heightFactor,
-      width: canvasInfo.width * widthFactor,
-      margin: { top: canvasInfo.height * (1.0 - heightFactor) / 2, left: canvasInfo.width * (1.0 - widthFactor) / 2 },
-      display: 'flex',
-      flexDirection: 'column',
-    }}
-    uiBackground={{
-		texture: {
-			src: "images/bg2.png",
-      
-		},
-    // textureMode: 'stretch'
-    textureMode: 'nine-slices',
-    textureSlices: {
-      top: 0.3,
-      bottom: 0.3,
-      left: 0.3,
-      right: 0.3
-    }
-	}}
-  >
-
-<UISpinner
-      spinner={spinner}
-      uiTransform={{
-        width: 128,
-        height: 128,
-        positionType: 'absolute',
-        position: { top: canvasInfo.height * heightFactor / 2-64, left: canvasInfo.width * widthFactor /2-250  }
+	<UiEntity
+		uiTransform={{
+      alignItems: 'center',
+			alignContent: 'center',
+      justifyContent:'center',
+      flexDirection:'row',
+			width: '100%',
+			height: '100%',
+		}}
+    	>
+          <Button
+      value="Click Me"
+      uiBackground={{color: primary}}
+      uiTransform={{ width: 80, height: 20, margin: 4 }}
+      onMouseDown={() => {
+        console.log('Clicked on the UI')
+      }}
+    />
+    <Button
+      value="Click Me"
+      uiBackground={{color: secondary}}
+      uiTransform={{ width: 80, height: 20, margin: 4 }}
+      onMouseDown={() => {
+        console.log('Clicked on the UI')
       }}
     />
 
-<UIAnimatedSprite
-      spriteAnimator={mySprite}
-      uiTransform={{
-        width: 128,
-        height: 128,
-        positionType: 'absolute',
-        position: { top: canvasInfo.height * heightFactor / 2-64, left: canvasInfo.width * widthFactor /2+250-128 }
-      }}
+    <Label
+      onMouseDown={handleClick}
+      value={'swap color'}
+      fontSize={18}
+      uiTransform={{ width:200, height: 30 }}
     />
 
-  
   </UiEntity>
 )
 
-spinner.show()
-mySprite.show()
+function handleClick() {
+  primary = Color4.Green()
+  secondary = Color4.Red()
+}
 
 export function setupUi() {
   ReactEcsRenderer.setUiRenderer(uiComponent)
