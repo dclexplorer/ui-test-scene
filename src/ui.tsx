@@ -7,45 +7,39 @@ let secondary = Color4.Green()
 const uiComponent = () => (
 	<UiEntity
 		uiTransform={{
-      alignItems: 'center',
-			alignContent: 'center',
-      justifyContent:'center',
-      flexDirection:'row',
-			width: '100%',
+      maxWidth: '100%',
 			height: '100%',
+      overflow: 'scroll',
+      alignItems: 'baseline',      
 		}}
     	>
-          <Button
-      value="Click Me"
-      uiBackground={{color: primary}}
-      uiTransform={{ width: 80, height: 20, margin: 4 }}
-      onMouseDown={() => {
-        console.log('Clicked on the UI')
-      }}
-    />
-    <Button
-      value="Click Me"
-      uiBackground={{color: secondary}}
-      uiTransform={{ width: 80, height: 20, margin: 4 }}
-      onMouseDown={() => {
-        console.log('Clicked on the UI')
-      }}
-    />
-
-    <Label
-      onMouseDown={handleClick}
-      value={'swap color'}
-      fontSize={18}
-      uiTransform={{ width:200, height: 30 }}
-    />
+        <UiEntity
+          uiTransform={{
+            minWidth: 150,
+            minHeight: 150,
+            
+          }}
+          uiBackground={{ color: Color4.Green() }}
+        />
+        <UiEntity
+          uiTransform={{
+            minWidth: 150,
+            minHeight: 150,
+          }}
+          uiBackground={{ color: Color4.Red() }}
+        />
+        <UiEntity
+          uiTransform={{
+            minWidth: 150,
+            minHeight: 150,
+          }}
+          uiBackground={{ color: Color4.Blue() }}
+        />
 
   </UiEntity>
 )
 
-function handleClick() {
-  primary = Color4.Green()
-  secondary = Color4.Red()
-}
+
 
 export function setupUi() {
   ReactEcsRenderer.setUiRenderer(uiComponent)
