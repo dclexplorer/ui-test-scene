@@ -3,10 +3,10 @@
   "description": "ECS7 ",
   "version": "1.0.0",
   "dependencies": {
-    "@dcl/js-runtime": "7.4.7",
-    "@dcl/sdk": "^7.4.7"
+    "@dcl/js-runtime": "7.6.4-11515577295.commit-620b210",
+    "@dcl/sdk": "7.6.4-11515577295.commit-620b210",
+    "@dcl/sdk-commands": "7.6.4-11515577295.commit-620b210"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=6.0.0"

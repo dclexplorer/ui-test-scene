@@ -12,7 +12,7 @@ export let canvasInfo = {
 export function main() {
   setupUi()
 
-  engine.addSystem((deltaTime) => {
+  engine.addSystem(() => {
     const uiCanvasInfo = UiCanvasInformation.getOrNull(engine.RootEntity)
 
     if (!uiCanvasInfo) return
